@@ -32,6 +32,10 @@ public class UserService {
 		return userdao.signup(user);
 	}
 	
+	public boolean update(User user) {
+		return true;e
+	}
+	
 //	public void getPass() {
 //		String pass = userdao.getPass();
 //		System.out.println(encoder.encode(pass));

@@ -37,6 +37,20 @@ public class UserDao {
 				) > 0;
 	}
 	
+	public boolean update(User user) {
+		String sql = "insert into users(name,email,pass,phone,designation,gender,bio) values (?,?,?,?,?,?,?)";
+		return template.update(
+				sql,
+				user.getName(),
+				user.getEmail(),
+				user.getPass(),
+				user.getPhone(),
+				user.getDesignation(),
+				user.getGender(),
+				user.getBio()
+				) > 0;
+	}
+	
 //	public String getPass() {
 //		String sql = "select pass from users where id = 1";
 //		return template.queryForObject(sql, String.class);

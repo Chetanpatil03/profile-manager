@@ -112,7 +112,7 @@ public class MyController {
 	@GetMapping("/editUser")
 	public String editUser(@ModelAttribute User user,Model model) {
 		if (userService.register(user)) {
-			return "redirect:/loginForm?success=1";
+			return "redirect:/home?success=1";
 		}
 		else {
 			model.addAttribute("error", "Failed to create account");
