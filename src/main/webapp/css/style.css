@@ -1,0 +1,362 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(90deg, #6a7ce3, #7a5cc7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MAIN CARD */
+.signup-card {
+    width: 850px;
+    height: 500px; /* FIXED SIZE KEPT */
+    background: #fff;
+    border-radius: 16px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    animation: scaleIn 0.8s ease;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    width: 40%;
+    background: linear-gradient(135deg, #6a7ce3, #7a5cc7);
+    color: #fff;
+    padding: 50px 35px; /* reduced */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: slideLeft 1s ease;
+}
+
+.left-panel h1 {
+    font-size: 32px; /* reduced */
+    margin-bottom: 12px;
+}
+
+.left-panel p {
+    font-size: 15px;
+    line-height: 1.5;
+    opacity: 0.95;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    width: 60%;
+    padding: 30px 45px; /* reduced */
+    animation: slideRight 1s ease;
+}
+
+.right-panel h2 {
+    font-size: 24px; /* reduced */
+    margin-bottom: 14px;
+    color: #222;
+}
+
+/* FORM */
+.right-panel form {
+    width: 100%;
+}
+
+.right-panel input,
+.right-panel select {
+    width: 100%;
+    height: 35px; /* reduced */
+    margin-bottom: 10px; /* reduced */
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid #d6d6d6;
+    font-size: 14px; /* reduced */
+    outline: none;
+}
+
+.right-panel input:focus,
+.right-panel select:focus {
+    border-color: #6a7ce3;
+}
+
+/* BUTTON */
+.right-panel button {
+    width: 100%;
+    height: 40px; /* reduced */
+    background: #6a7ce3;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px; /* reduced */
+    color: #fff;
+    cursor: pointer;
+    margin-top: 6px; /* reduced */
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.right-panel button:hover {
+    background: #5a6de0;
+    transform: translateY(-2px);
+}
+
+/* SWITCH TEXT */
+.switch {
+    text-align: center;
+    margin-top: 10px; /* reduced */
+    font-size: 14px; /* reduced */
+}
+
+.switch a {
+    color: #6a7ce3;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* LOGIN PANEL (COMPACT) */
+.login-panel {
+    display: flex;
+    align-items: center;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.login-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* ANIMATIONS */
+@keyframes slideLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .signup-card {
+        flex-direction: column;
+        width: 95%;
+        height: auto;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+
+    .left-panel {
+        text-align: center;
+        padding: 35px;
+    }
+}
+/* CENTER LOGIN & SIGNUP HEADINGS */
+.right-panel h2 {
+    text-align: center;
+}
+.login-subtitle {
+    text-align: center;
+}
+
+/* DASHBOARD TEXT CONTENT */
+.right-panel p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* DASHBOARD LINKS */
+.switch a:hover {
+    color: #5a6de0;
+}
+
+
+/* PROFILE VIEW MODAL */
+.profile-info {
+    margin-top: 15px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.profile-info span {
+    font-weight: 600;
+    color: #6a7ce3;
+}
+
+/* CENTER BUTTON */
+.modal-actions.center {
+    justify-content: center;
+}
+
+/* ========================= */
+/* PROFILE MODAL FIX */
+/* ========================= */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 9999;
+}
+
+/* SHOW MODAL */
+.modal:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* MODAL BOX */
+.modal-content {
+    background: #ffffff;
+    width: 380px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.5s ease;
+}
+
+/* MODAL TITLE */
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6a7ce3;
+}
+
+/* CLOSE / SAVE BUTTON */
+.btn-save {
+    display: inline-block;
+    padding: 10px 26px;
+    background: #6a7ce3;
+    color: #fff;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-save:hover {
+    background: #5a6de0;
+}
+
+/* =============================== */
+/* SIMPLE PROFILE CARD (SKETCH UI) */
+/* =============================== */
+
+.profile-simple-card {
+    width: 360px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    animation: scaleIn 0.6s ease;
+}
+
+/* AVATAR */
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid #6a7ce3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 auto 15px;
+}
+
+/* NAME */
+.profile-name {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+/* ROLE */
+.profile-role {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 18px;
+}
+
+/* DETAILS */
+.profile-details p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* BUTTONS */
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-actions button {
+    width: 48%;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* CLOSE */
+.btn-outline {
+    background: #fff;
+    border: 1.5px solid #6a7ce3;
+    color: #6a7ce3;
+}
+
+/* EDIT */
+.btn-primary {
+    background: linear-gradient(135deg, #6a7ce3, #7a5cc7);
+    border: none;
+    color: #fff;
+}
+
+/* HOVER */
+.btn-outline:hover {
+    background: #f4f6ff;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}

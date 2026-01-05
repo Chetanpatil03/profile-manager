@@ -1,0 +1,130 @@
+@charset "UTF-8";
+/* ========================= */
+/* DASHBOARD TEXT */
+/* ========================= */
+.right-panel p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* ========================= */
+/* MODAL OVERLAY */
+/* ========================= */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 9999;
+}
+
+.modal:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ========================= */
+/* MODAL BOX */
+/* ========================= */
+.modal-content {
+    background: #ffffff;
+    width: 380px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.5s ease;
+}
+
+/* ========================= */
+/* PROFILE CARD */
+/* ========================= */
+.profile-simple-card {
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid #6a7ce3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 auto 15px;
+}
+
+.profile-name {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+.profile-role {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 18px;
+}
+
+.profile-details p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* ========================= */
+/* PROFILE ACTIONS */
+/* ========================= */
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-actions a {
+    width: 48%;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* CLOSE */
+.btn-outline {
+    background: #fff;
+    border: 1.5px solid #6a7ce3;
+    color: #6a7ce3;
+}
+
+/* EDIT */
+.btn-primary {
+    background: linear-gradient(135deg, #6a7ce3, #7a5cc7);
+    color: #fff;
+    border: none;
+}
+
+.btn-outline:hover {
+    background: #f4f6ff;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
