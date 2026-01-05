@@ -80,8 +80,6 @@ if (user == null) {
 							Other</option>
 					</select>
 
-
-
 					<textarea><%=user.getBio()%></textarea>
 
 					<button type="submit">Update</button>

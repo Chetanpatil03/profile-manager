@@ -109,6 +109,16 @@ public class MyController {
 	    return "redirect:/home";
 	}
 
+	@GetMapping("/editUser")
+	public String editUser(@ModelAttribute User user,Model model) {
+		if (userService.register(user)) {
+			return "redirect:/loginForm?success=1";
+		}
+		else {
+			model.addAttribute("error", "Failed to create account");
+            return "signup"; //--> signup.jsp
+		}
+	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
