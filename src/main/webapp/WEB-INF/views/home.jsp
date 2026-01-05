@@ -1,3 +1,12 @@
+<%@page import="in.cb.bean.User"%>
+<%
+    User user = (User) session.getAttribute("loggedInUser");
+    if (user == null) {
+        response.sendRedirect("login");
+        return;
+    }
+%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,12 +22,11 @@
 </head>
 
 <body>
-
 	<div class="signup-card">
 
 		<!-- LEFT PANEL -->
 		<div class="left-panel">
-			<h1>Welcome 👋</h1>
+			<h1>Welcome 👋 <%=user.getName() %> </h1>
 			<p>You have successfully logged in.</p>
 		</div>
 
@@ -50,20 +58,19 @@
 				<div class="profile-avatar" id="profile-avatar"></div>
 
 				<!-- Name & Role -->
-				<h2 class="profile-name" id="profile-name">Chetan Patil</h2>
-				<p class="profile-role">Student</p>
+				<h2 class="profile-name" id="profile-name"><%=user.getName() %></h2>
+				<p class="profile-role"><%=user.getDesignation() %></p>
 
 				<!-- Info -->
 				<div class="profile-details">
 					<p>
-						<strong>Email:</strong> chetan45@gmail.com
+						<strong>Email:</strong> <%=user.getEmail() %>
 					</p>
 					<p>
-						<strong>Gender:</strong> Male
+						<strong>Gender:</strong> <%=user.getGender() %>
 					</p>
 					<p>
-						<strong>About:</strong> Hey, I am a student and passionate about
-						coding.
+						<strong>About:</strong> <%=user.getBio() %>
 					</p>
 				</div>
 
