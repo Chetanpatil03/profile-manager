@@ -75,7 +75,7 @@ public class UserDao {
 	}
 
 	public boolean updatePassword(int userId, String password) {
-	    String sql = "UPDATE users SET password = ? WHERE id = ?";
+	    String sql = "UPDATE users SET pass = ? WHERE id = ?";
 	    return template.update(sql, password, userId) > 0;
 	}
 

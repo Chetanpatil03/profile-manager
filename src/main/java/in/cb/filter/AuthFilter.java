@@ -41,7 +41,8 @@ public class AuthFilter extends HttpFilter implements Filter {
                 || uri.endsWith("/signup")
                 || uri.endsWith("/saveUser")
                 || uri.contains("/forgot-password")
-                || uri.endsWith("/")
+                || uri.contains("/forgotPassword")
+                || uri.equals(request.getContextPath() + "/")
                 || uri.contains("/css/")
                 || uri.contains("/js/")
                 || uri.contains("/images/")) {
@@ -58,7 +59,11 @@ public class AuthFilter extends HttpFilter implements Filter {
                 response.sendRedirect(request.getContextPath() + "/forgot-password");
                 return;
             }
+            // ✅ Valid reset session → allow request
+            chain.doFilter(req, res);
+            return;
         }
+
         
         // ======================
         // LOGGED-IN ROUTES

@@ -41,9 +41,15 @@ public class MyController {
 	}
 	
 	@GetMapping("/reset-password")
-	public String getResetPage() {
-		return "reset-password";
+	public String resetPasswordPage(HttpSession session) {
+
+	    if (session == null || session.getAttribute("resetUserId") == null) {
+	        return "redirect:/forgot-password";
+	    }
+
+	    return "reset-password";
 	}
+
 
 	@GetMapping("/loginForm") // --> get mapping for refesh or url 
 	public String showLoginForm() {

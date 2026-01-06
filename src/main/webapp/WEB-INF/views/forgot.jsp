@@ -30,7 +30,7 @@
 					<h2>Verify Account</h2>
 					<p class="login-subtitle">Enter your details to continue</p>
 
-					<form method="post" action="forgotPassword">
+					<form action="forgotPassword" method="post">
 
 						<input type="email" name="email" placeholder="Email Address"
 							required> 
