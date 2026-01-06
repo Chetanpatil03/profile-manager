@@ -45,8 +45,8 @@ if (user == null) {
 					and user profile management using a modern UI.</p>
 
 				<div class="switch">
-					<a href="#profileModal">View Profile</a> | <a href="signup">Delete
-						Profile</a> | <a href="index">Logout</a>
+					<a href="#profileModal">View Profile</a> | <a
+						href="#deleteAccountModal">Delete Profile</a> | <a href="index">Logout</a>
 				</div>
 			</div>
 		</div>
@@ -93,13 +93,48 @@ if (user == null) {
 		</div>
 	</div>
 
+	<!-- DELETE PROFILE MODAL -->
+	<div id="deleteAccountModal" class="modal">
+		<div class="modal-content">
+		
+			<div class="profile-simple-card">
+
+				<!-- Title -->
+				<h2 class="profile-name">Confirm Account Deletion</h2>
+
+				<!-- Warning Text -->
+				<p class="profile-role">This action is permanent and cannot be
+					undone.</p>
+				<form action="#" method = "post">
+				<!-- Confirmation Info -->
+				<div class="profile-details">
+					<p>Please type your email address to confirm deletion:</p>
+
+					<input type="email" name="confirmEmail"
+						placeholder="Enter your email" required />
+				</div>
+
+				<!-- Buttons -->
+				<div class="profile-actions">
+					<a href="#" class="btn-outline">Cancel</a>
+					<button type="submit" class="btn-primary">Confirm Delete</button>
+				</div>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+
 	<%
-		String error = (String) request.getAttribute("error");
-		if (error != null) {
+	String error = (String) request.getAttribute("error");
+	if (error != null) {
 	%>
-		<script> alert("<%=error%>"); </script>
+	<script> alert("<%=error%>
+		");
+	</script>
 	<%
-		}
+	}
 	%>
 
 
