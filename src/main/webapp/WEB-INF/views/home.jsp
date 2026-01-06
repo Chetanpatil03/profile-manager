@@ -105,7 +105,7 @@ if (user == null) {
 				<!-- Warning Text -->
 				<p class="profile-role">This action is permanent and cannot be
 					undone.</p>
-				<form action="#" method = "post">
+				<form action="deleteProfile" method = "post">
 				<!-- Confirmation Info -->
 				<div class="profile-details">
 					<p>Please type your email address to confirm deletion:</p>

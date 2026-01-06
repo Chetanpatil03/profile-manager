@@ -142,6 +142,37 @@ public class MyController {
 		System.out.println(session.getAttribute("loggedInUser"));
 		return "redirect:/home";
 	}
+	
+	
+	@PostMapping("/deleteProfile")
+	public String deleteAccount(
+			@RequestParam("confirmEmail") String confirmEmail,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		
+		User sessionUser = (User) session.getAttribute("loggedInUser");
+
+		if (sessionUser == null) {
+			return "redirect:/login";
+		}
+		
+		String email = sessionUser.getEmail();
+		if (email.equals(confirmEmail)) {
+			if (userService.deleteUser(sessionUser.getId())) {
+				session.invalidate();
+				redirectAttributes.addFlashAttribute( "success", "Your account has been deleted successfully.");
+				return "redirect:/index";
+
+			}else {
+				redirectAttributes.addFlashAttribute("error", "Delete operation Failed");
+				return "redirect:/home";			
+			}
+		}
+		else {
+			redirectAttributes.addFlashAttribute("error", "Email does not matched");
+			return "redirect:/home";
+		}
+	}
 
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {

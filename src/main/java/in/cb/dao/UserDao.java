@@ -64,5 +64,9 @@ public class UserDao {
 		return template.queryForObject(sql, String.class,id);
 	}
 //	
+	public boolean deleteUser(int id) {
+		String query = "delete from users where id = ?";
+		return template.update(query,id) > 0;
+	}
 	
 }

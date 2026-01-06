@@ -49,6 +49,13 @@ public class UserService {
 		}
 	}
 	
+	public boolean deleteUser(int id) {
+		if (id <= 0 ||getUserById(id) == null ) {			
+			return false;
+		}
+		return userdao.deleteUser(id);
+	}
+	
 //	public void getPass() {
 //		String pass = userdao.getPass();
 //		System.out.println(encoder.encode(pass));
