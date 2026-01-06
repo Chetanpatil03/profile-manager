@@ -1,4 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="in.cb.bean.User"%>
+
 <%
 User user = (User) session.getAttribute("loggedInUser");
 if (user == null) {
@@ -7,18 +10,16 @@ if (user == null) {
 }
 %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Create Account</title>
+<title>Edit Profile</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/auth.css">
 </head>
-<body>
 
+<body>
 
 	<div class="container">
 		<div class="signup-card">
@@ -26,68 +27,63 @@ if (user == null) {
 			<!-- LEFT PANEL -->
 			<div class="left-panel">
 				<h1>Welcome!</h1>
-				<p>Edit your account and continue your journey with us. Access
-					exclusive features and stay connected.</p>
+				<p>Edit your account and continue your journey with us.</p>
 			</div>
 
 			<!-- RIGHT PANEL -->
 			<div class="right-panel">
-				<h2>Edit profile</h2>
+				<h2>Edit Profile</h2>
 
 				<form method="post" action="updateProfile">
-					<input type="email" value="<%=user.getEmail()%>" readonly>
-					<input type="text" value="<%=user.getName()%>" required> <input
-						type="tel" value="<%=user.getPhone()%>" required> 
-						
-						<select name="designation" required>
+
+					<input type="email" name="email" value="<%=user.getEmail()%>" readonly> <input type="text" name="name" value="<%=user.getName()%>" required> 
+						<input type="tel" name="phone" value="<%=user.getPhone()%>" required> <select
+						name="designation" required>
 						<option value="">Select Designation</option>
 						<option value="Student"
 							<%="Student".equals(user.getDesignation()) ? "selected" : ""%>>
 							Student</option>
-
 						<option value="Software Engineer"
 							<%="Software Engineer".equals(user.getDesignation()) ? "selected" : ""%>>
 							Software Engineer</option>
-
 						<option value="Data Analyst"
 							<%="Data Analyst".equals(user.getDesignation()) ? "selected" : ""%>>
 							Data Analyst</option>
-
-						<option value="Teacher"
-							<%="Teacher".equals(user.getDesignation()) ? "selected" : ""%>>
-							Teacher</option>
-
-						<option value="Working Professional"
-							<%="Working Professional".equals(user.getDesignation()) ? "selected" : ""%>>
-							Working Professional</option>
-
-						<option value="Others"
-							<%="Others".equals(user.getDesignation()) ? "selected" : ""%>>
-							Others</option>
 					</select> <select name="gender" required>
 						<option value="">Select Gender</option>
-
 						<option value="Male"
 							<%="Male".equals(user.getGender()) ? "selected" : ""%>>
 							Male</option>
-
 						<option value="Female"
 							<%="Female".equals(user.getGender()) ? "selected" : ""%>>
 							Female</option>
-
-						<option value="Other"
-							<%="Other".equals(user.getGender()) ? "selected" : ""%>>
-							Other</option>
 					</select>
 
-					<textarea><%=user.getBio()%></textarea>
+					<textarea name="bio"><%=user.getBio()%></textarea>
 
 					<button type="submit">Update</button>
+					<button type="button" onclick="location.href='home'">Home</button>
+
 				</form>
 			</div>
-
 		</div>
 	</div>
+
+	<%
+	String success = (String) request.getAttribute("success");
+	String error = (String) request.getAttribute("error");
+
+	if (success != null) {
+	%>
+	<div style="color: green;"><%=success%></div>
+	<%
+	}
+	if (error != null) {
+	%>
+	<div style="color: red;"><%=error%></div>
+	<%
+	}
+	%>
 
 </body>
 </html>

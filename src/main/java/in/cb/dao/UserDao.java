@@ -38,23 +38,31 @@ public class UserDao {
 	}
 	
 	public boolean update(User user) {
-		String sql = "insert into users(name,email,pass,phone,designation,gender,bio) values (?,?,?,?,?,?,?)";
+		String sql = "UPDATE users SET name =?, phone =?, designation=?, gender=?, bio = ? WHERE id = ?";
 		return template.update(
 				sql,
 				user.getName(),
-				user.getEmail(),
-				user.getPass(),
 				user.getPhone(),
 				user.getDesignation(),
 				user.getGender(),
-				user.getBio()
+				user.getBio(),
+				user.getId()
 				) > 0;
 	}
 	
-//	public String getPass() {
-//		String sql = "select pass from users where id = 1";
-//		return template.queryForObject(sql, String.class);
-//	}
+	public User getUserById(int id) {
+		String query = "select * from users where id = ?";
+		try {
+			return template.queryForObject(query, new UserRowMapper(), id);			
+		}catch (EmptyResultDataAccessException e) {
+	        return null; // ❗ User not found FAILED (NORMAL CASE)
+	    }
+	}
+	
+	public String getPass(int id) {
+		String sql = "select pass from users where id = ?";
+		return template.queryForObject(sql, String.class,id);
+	}
 //	
 	
 }

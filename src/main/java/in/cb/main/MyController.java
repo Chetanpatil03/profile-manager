@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.cb.bean.User;
 import in.cb.service.UserService;
@@ -49,7 +50,6 @@ public class MyController {
 		return "signup";
 	}
 
-
 //	@PostMapping("/signupForm")
 //	public String signupForm(@ModelAttribute("model") User user) {
 //		
@@ -88,41 +88,59 @@ public class MyController {
 		}
 
 		session.setAttribute("loggedInUser", user);
+		System.out.println(session.getAttribute("loggedInUser"));
+
 		return "redirect:/home";
 	}
 
 	@GetMapping("/edit")
 	public String editProfile(HttpSession session, Model model) {
 
-	    User loggedInUser = (User) session.getAttribute("loggedInUser");
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
 
-	    if (loggedInUser == null) {
-	        return "redirect:/login";
-	    }
-	    
-	    model.addAttribute("user", loggedInUser);
-	    return "edit"; // edit.jsp
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("user", loggedInUser);
+		return "edit"; // edit.jsp
 	}
 
-	
 	@PostMapping("/updateProfile")
-	public String updateProfile(@ModelAttribute User formUser, HttpSession session, Model model) {
+	public String updateProfile(@ModelAttribute User formUser, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+
 		User sessionUser = (User) session.getAttribute("loggedInUser");
+
 		if (sessionUser == null) {
 			return "redirect:/login";
 		}
 
+		// 🔐 Force ID from session (prevent tampering)
 		formUser.setId(sessionUser.getId());
-		
-		if (!userService.updateUser(formUser)) {
-			model.addAttribute("error", "Failed to Update information.");
-			return "signup"; // --> signup.jsp
-		} 
 
-		// Update session with new data
-		session.setAttribute("loggedInUser", formUser);
+		boolean updated = userService.updateUser(formUser);
 
-		return "redirect:/home?updated=1";
+		if (!updated) {
+			redirectAttributes.addFlashAttribute("error", "Failed to update profile");
+			return "redirect:/edit";
+		}
+
+		// ✅ Fetch fresh user from DB
+		User updatedUser = userService.getUserById(sessionUser.getId());
+
+		if (updatedUser == null) {
+		    session.invalidate();
+		    return "redirect:/login";
+		}
+
+
+		// ✅ Update session with complete object
+		session.setAttribute("loggedInUser", updatedUser);
+
+		redirectAttributes.addFlashAttribute("success", "Profile updated successfully");
+		System.out.println(session.getAttribute("loggedInUser"));
+		return "redirect:/home";
 	}
 
 	@GetMapping("/logout")

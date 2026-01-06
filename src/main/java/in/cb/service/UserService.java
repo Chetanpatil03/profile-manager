@@ -33,7 +33,20 @@ public class UserService {
 	}
 	
 	public boolean updateUser(User user) {
-		return true;
+	    if (user == null || user.getId() <= 0) {
+	        return false;
+	    }
+	    return userdao.update(user);
+	}
+
+	
+	public User getUserById(int id) {
+		if (id <= 0) {
+			return null;
+		}
+		else {
+			return userdao.getUserById(id);
+		}
 	}
 	
 //	public void getPass() {

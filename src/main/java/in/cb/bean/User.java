@@ -73,6 +73,14 @@ public class User {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pass=" + pass + ", phone=" + phone
+				+ ", designation=" + designation + ", gender=" + gender + ", bio=" + bio + "]";
+	}
+	
 	
 	
 	
