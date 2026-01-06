@@ -32,8 +32,8 @@ public class UserService {
 		return userdao.signup(user);
 	}
 	
-	public boolean update(User user) {
-		return true;e
+	public boolean updateUser(User user) {
+		return true;
 	}
 	
 //	public void getPass() {

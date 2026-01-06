@@ -34,7 +34,7 @@ if (user == null) {
 			<div class="right-panel">
 				<h2>Edit profile</h2>
 
-				<form method="post" action="editUser">
+				<form method="post" action="updateProfile">
 					<input type="email" value="<%=user.getEmail()%>" readonly>
 					<input type="text" value="<%=user.getName()%>" required> <input
 						type="tel" value="<%=user.getPhone()%>" required> 

@@ -1,10 +1,10 @@
 <%@page import="in.cb.bean.User"%>
 <%
-    User user = (User) session.getAttribute("loggedInUser");
-    if (user == null) {
-        response.sendRedirect("login");
-        return;
-    }
+User user = (User) session.getAttribute("loggedInUser");
+if (user == null) {
+	response.sendRedirect("login");
+	return;
+}
 %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -15,10 +15,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Home | Dashboard</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/home.css">
 
 <!-- Base authentication layout -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/auth.css">
 </head>
 
 <body>
@@ -26,7 +28,10 @@
 
 		<!-- LEFT PANEL -->
 		<div class="left-panel">
-			<h1>Welcome 👋 <%=user.getName() %> </h1>
+			<h1>
+				Welcome 👋
+				<%=user.getName()%>
+			</h1>
 			<p>You have successfully logged in.</p>
 		</div>
 
@@ -47,7 +52,7 @@
 		</div>
 
 	</div>
-	
+
 	<!-- PROFILE VIEW MODAL -->
 	<div id="profileModal" class="modal">
 		<div class="modal-content">
@@ -58,35 +63,45 @@
 				<div class="profile-avatar" id="profile-avatar"></div>
 
 				<!-- Name & Role -->
-				<h2 class="profile-name" id="profile-name"><%=user.getName() %></h2>
-				<p class="profile-role"><%=user.getDesignation() %></p>
+				<h2 class="profile-name" id="profile-name"><%=user.getName()%></h2>
+				<p class="profile-role"><%=user.getDesignation()%></p>
 
 				<!-- Info -->
 				<div class="profile-details">
 					<p>
-						<strong>Email:</strong> <%=user.getEmail() %>
+						<strong>Email:</strong>
+						<%=user.getEmail()%>
 					</p>
 					<p>
-						<strong>Gender:</strong> <%=user.getGender() %>
+						<strong>Gender:</strong>
+						<%=user.getGender()%>
 					</p>
 					<p>
-						<strong>About:</strong> <%=user.getBio() %>
+						<strong>About:</strong>
+						<%=user.getBio()%>
 					</p>
 				</div>
 
 				<!-- Buttons -->
 				<div class="profile-actions">
-					<a href="#" class="btn-outline">Close</a> 
-					<a href="edit" class="btn-primary">Edit</a>
+					<a href="#" class="btn-outline">Close</a> <a href="edit"
+						class="btn-primary">Edit</a>
 				</div>
 
 			</div>
 
 		</div>
 	</div>
-	
 
-	
+	<%
+		String error = (String) request.getAttribute("error");
+		if (error != null) {
+	%>
+		<script> alert("<%=error%>"); </script>
+	<%
+		}
+	%>
+
 
 	<script>
 		function generateInitials(name) {

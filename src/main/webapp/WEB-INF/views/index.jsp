@@ -17,7 +17,7 @@
         <p>
             A simple and secure authentication system.  
             Login to your account or create a new one to get started.
-            <a href = "home">go to home.</a>
+            <!--  <a href = "home">go to home.</a>-->
         </p>
 
         <div class="btn-group">
