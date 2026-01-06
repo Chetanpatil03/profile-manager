@@ -1,0 +1,198 @@
+@charset "UTF-8";
+
+/* ========================================= */
+/* EDIT PROFILE – COMPACT MODE */
+/* ========================================= */
+
+.right-panel {
+    padding: 26px 42px;
+}
+
+.right-panel h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+/* ========================================= */
+/* FORM ELEMENTS – COMPACT */
+/* ========================================= */
+
+.right-panel input,
+.right-panel select {
+    height: 38px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.right-panel textarea {
+    height: 70px;        /* 🔥 KEY FIX */
+    resize: none;
+    padding-top: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+/* ========================================= */
+/* READONLY EMAIL */
+/* ========================================= */
+
+.right-panel input[readonly] {
+    background: #f6f7fb;
+    color: #777;
+    border: 1px dashed #ccc;
+}
+
+/* ========================================= */
+/* BUTTONS – COMPACT & BALANCED */
+/* ========================================= */
+
+.right-panel button {
+    height: 38px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+/* Update */
+.right-panel button[type="submit"] {
+    background: linear-gradient(135deg, #6a7ce3, #7a5cc7);
+}
+
+/* Home */
+.right-panel button[type="button"] {
+    background: #e7e9ff;
+    color: #4f46e5;
+}
+
+/* ========================================= */
+/* LEFT PANEL – VISUAL BALANCE */
+/* ========================================= */
+
+.left-panel {
+    padding: 45px 35px;
+}
+
+.left-panel h1 {
+    font-size: 32px;
+}
+
+.left-panel p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ========================================= */
+/* VERTICAL BUTTON STACK */
+/* ========================================= */
+
+.right-panel form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Buttons stack */
+.right-panel button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* Space between buttons */
+.right-panel button + button {
+    margin-top: 10px;
+}
+
+/* Icon inside button */
+.btn-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* Update button */
+.btn-update {
+    background: linear-gradient(135deg, #6a7ce3, #7a5cc7);
+    color: #fff;
+}
+
+.btn-update:hover {
+    background: #5a6de0;
+    transform: translateY(-2px);
+}
+
+/* Home button */
+.btn-home {
+    background: #eef0ff;
+    color: #4f46e5;
+}
+
+.btn-home:hover {
+    background: #e0e4ff;
+    transform: translateY(-1px);
+}
+
+/* ========================================= */
+/* HORIZONTAL FORM ACTION BUTTONS */
+/* ========================================= */
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* Base button */
+.form-actions button {
+    flex: 1; /* equal width */
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+
+    transition: all 0.25s ease;
+}
+
+/* Icon */
+.btn-icon {
+    font-size: 15px;
+}
+
+/* Update button (primary) */
+.btn-update {
+    background: linear-gradient(135deg, #6a7ce3, #7a5cc7);
+    color: #fff;
+}
+
+.btn-update:hover {
+    background: #5a6de0;
+    transform: translateY(-2px);
+}
+
+/* Home button (secondary) */
+.btn-home {
+    background: #eef0ff;
+    color: #4f46e5;
+}
+
+.btn-home:hover {
+    background: #e0e4ff;
+    transform: translateY(-1px);
+}
+

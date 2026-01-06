@@ -40,6 +40,7 @@ public class AuthFilter extends HttpFilter implements Filter {
                 || uri.endsWith("/loginForm")
                 || uri.endsWith("/signup")
                 || uri.endsWith("/saveUser")
+                || uri.contains("/forgot-password")
                 || uri.endsWith("/")
                 || uri.contains("/css/")
                 || uri.contains("/js/")
@@ -49,11 +50,24 @@ public class AuthFilter extends HttpFilter implements Filter {
             return;
         }
 
-        // Block access if not logged in
+        // ======================
+        // RESET PASSWORD ROUTES
+        // ======================
+        if (uri.contains("/reset-password") || uri.contains("/resetPassword")) {
+            if (session == null || session.getAttribute("resetUserId") == null) {
+                response.sendRedirect(request.getContextPath() + "/forgot-password");
+                return;
+            }
+        }
+        
+        // ======================
+        // LOGGED-IN ROUTES
+        // ======================
         if (session == null || session.getAttribute("loggedInUser") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+
 
         chain.doFilter(req, res);
     }

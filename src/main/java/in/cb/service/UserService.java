@@ -61,6 +61,24 @@ public class UserService {
 //		System.out.println(encoder.encode(pass));
 //	}
 	
+	public User getUserByEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return null;
+        }
+        return userdao.findByEmail(email);
+    }
+
+    public boolean updatePassword(int userId, String rawPassword) {
+        if (userId <= 0 || rawPassword == null) {
+            return false;
+        }
+
+        // 🔐 IMPORTANT: hash password
+        String hashedPassword = encoder.encode(rawPassword);
+
+        return userdao.updatePassword(userId, hashedPassword);
+    }
+
 	
 	
 	

@@ -32,38 +32,62 @@ public class MyController {
 
 	@GetMapping("/index")
 	public String getIndex() {
-		return "index";
+		return "index"; // --> maps to /WEB-INF/views/index.jsp
+	}
+	
+	@GetMapping("/forgot-password")
+	public String getForgot() {
+		return "forgot"; // --> maps to /WEB-INF/views/forgot.jsp
+	}
+	
+	@GetMapping("/reset-password")
+	public String getResetPage() {
+		return "reset-password";
 	}
 
+	@GetMapping("/loginForm") // --> get mapping for refesh or url 
+	public String showLoginForm() {
+		return "login"; // --> maps to /WEB-INF/views/login.jsp
+	}
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("MyController LOADED");
+	}
+	
 	@GetMapping("/home")
 	public String getHomePage() {
-		return "home";
+		return "home"; // --> maps to /WEB-INF/views/home.jsp
 	}
 
 	@GetMapping("/login")
 	public String getLoginPage() {
-		return "login";
+		return "login";  //--> maps to /WEB-INF/views/login.jsp
 	}
 
 	@GetMapping("/signup")
 	public String getSignupPage() {
-		return "signup";
+		return "signup"; //--> maps to /WEB-INF/views/signup.jsp
 	}
 
-//	@PostMapping("/signupForm")
-//	public String signupForm(@ModelAttribute("model") User user) {
-//		
-//		System.out.println("Name :: "+user.getName());
-//		System.out.println("Email :: "+user.getEmail());
-//		System.out.println("pass :: "+user.getPass());
-//		System.out.println("phone :: "+user.getPhone());
-//		System.out.println("Designation : "+user.getDesignation());
-//		System.out.println("Gender :: "+user.getGender());
-//		System.out.println("Bio :: "+user.getBio());
-//		
-//		return "login";n
-//	}
-
+	//--> Safe guarding edit page ==> 
+	
+	@GetMapping("/edit")
+	public String editProfile(HttpSession session, Model model) {
+		
+		User loggedInUser = (User) session.getAttribute("loggedInUser");
+		
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		
+		model.addAttribute("user", loggedInUser);
+		return "edit"; // edit.jsp
+	}
+	
+	// ==> Operations 
+	
+	// => 1. Register
 	@PostMapping("/saveUser")
 	public String signup(@ModelAttribute User user, Model model) {
 		if (userService.register(user)) {
@@ -74,11 +98,10 @@ public class MyController {
 		}
 	}
 
+	// => 2. Login
 	@PostMapping("/loginForm")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
 			HttpSession session) {
-
-//		userService.getPass();
 
 		User user = userService.authenticate(email, password);
 
@@ -93,19 +116,7 @@ public class MyController {
 		return "redirect:/home";
 	}
 
-	@GetMapping("/edit")
-	public String editProfile(HttpSession session, Model model) {
-
-		User loggedInUser = (User) session.getAttribute("loggedInUser");
-
-		if (loggedInUser == null) {
-			return "redirect:/login";
-		}
-
-		model.addAttribute("user", loggedInUser);
-		return "edit"; // edit.jsp
-	}
-
+	// => 3. Edit/ Update
 	@PostMapping("/updateProfile")
 	public String updateProfile(@ModelAttribute User formUser, HttpSession session,
 			RedirectAttributes redirectAttributes) {
@@ -143,7 +154,7 @@ public class MyController {
 		return "redirect:/home";
 	}
 	
-	
+	// => 4. Delete 
 	@PostMapping("/deleteProfile")
 	public String deleteAccount(
 			@RequestParam("confirmEmail") String confirmEmail,
@@ -174,6 +185,7 @@ public class MyController {
 		}
 	}
 
+	// => 5. Logout
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -181,16 +193,95 @@ public class MyController {
 
 		return "redirect:/";
 	}
+	
+	// => 6. Forgot Password
+	@PostMapping("/forgotPassword")
+	public String handleForgotPassword(
+	        @RequestParam("email") String email,
+	        @RequestParam("phone") String phoneLastDigits,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
 
-	@GetMapping("/loginForm")
-	public String showLoginForm() {
-		return "login"; // login.jsp
+	    User user = userService.getUserByEmail(email);
+
+	    if (user == null) {
+	        redirectAttributes.addFlashAttribute(
+	            "error", "Invalid email or phone details"
+	        );
+	        return "redirect:/forgot-password";
+	    }
+
+	    String phone = user.getPhone();
+
+	    if (phone == null || phone.length() < 4) {
+	        redirectAttributes.addFlashAttribute(
+	            "error", "Invalid email or phone details"
+	        );
+	        return "redirect:/forgot-password";
+	    }
+
+	    String lastFour = phone.substring(phone.length() - 4);
+
+	    if (!lastFour.equals(phoneLastDigits)) {
+	        redirectAttributes.addFlashAttribute(
+	            "error", "Invalid email or phone details"
+	        );
+	        return "redirect:/forgot-password";
+	    }
+
+	    session.removeAttribute("resetUserId");
+
+	    session.setAttribute("resetUserId", user.getId());
+
+	    return "redirect:/reset-password";
 	}
 
-	@PostConstruct
-	public void init() {
-		System.out.println("MyController LOADED");
-	}
+	
+	// => 7. Reset password
+    @PostMapping("/resetPassword")
+    public String handleResetPassword(
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        Integer userId = (Integer) session.getAttribute("resetUserId");
+
+        if (userId == null) {
+            redirectAttributes.addFlashAttribute(
+                "error", "Session expired. Please try again."
+            );
+            return "redirect:/forgot-password";
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute(
+                "error", "Passwords do not match"
+            );
+            return "redirect:/reset-password";
+        }
+
+        boolean updated = userService.updatePassword(userId, newPassword);
+
+        if (!updated) {
+            redirectAttributes.addFlashAttribute(
+                "error", "Failed to reset password"
+            );
+            return "redirect:/reset-password";
+        }
+
+        // Clear reset session
+        session.removeAttribute("resetUserId");
+
+        redirectAttributes.addFlashAttribute(
+            "success", "Password reset successfully. Please login."
+        );
+
+        return "redirect:/login";
+    }
+
+
+
 }
 
 //select id,name,email,phone,designation,gender,bio from users;

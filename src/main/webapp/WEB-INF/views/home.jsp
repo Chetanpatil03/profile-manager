@@ -1,4 +1,7 @@
 <%@page import="in.cb.bean.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <%
 User user = (User) session.getAttribute("loggedInUser");
 if (user == null) {
@@ -7,8 +10,6 @@ if (user == null) {
 }
 %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +22,7 @@ if (user == null) {
 <!-- Base authentication layout -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/auth.css">
+
 </head>
 
 <body>
@@ -45,8 +47,15 @@ if (user == null) {
 					and user profile management using a modern UI.</p>
 
 				<div class="switch">
-					<a href="#profileModal">View Profile</a> | <a
-						href="#deleteAccountModal">Delete Profile</a> | <a href="index">Logout</a>
+					<div class="dashboard-actions">
+						<a href="#profileModal" class="action-link"> 👤 <span>View
+								Profile</span>
+						</a> <a href="#deleteAccountModal" class="action-link danger"> 🗑
+							<span>Delete Profile</span>
+						</a> <a href="logout" class="action-link logout"> 🚪 <span>Logout</span>
+						</a>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -84,8 +93,8 @@ if (user == null) {
 
 				<!-- Buttons -->
 				<div class="profile-actions">
-					<a href="#" class="btn-outline">Close</a> <a href="edit"
-						class="btn-primary">Edit</a>
+					<a href="#" onclick="location.hash='';" class="btn-outline">Close</a>
+					<a href="edit" class="btn-primary">Edit</a>
 				</div>
 
 			</div>
@@ -96,7 +105,7 @@ if (user == null) {
 	<!-- DELETE PROFILE MODAL -->
 	<div id="deleteAccountModal" class="modal">
 		<div class="modal-content">
-		
+
 			<div class="profile-simple-card">
 
 				<!-- Title -->
@@ -105,20 +114,21 @@ if (user == null) {
 				<!-- Warning Text -->
 				<p class="profile-role">This action is permanent and cannot be
 					undone.</p>
-				<form action="deleteProfile" method = "post">
-				<!-- Confirmation Info -->
-				<div class="profile-details">
-					<p>Please type your email address to confirm deletion:</p>
+				<form action="deleteProfile" method="post">
+					<!-- Confirmation Info -->
+					<div class="profile-details">
+						<p>Please type your email address to confirm deletion:</p>
 
-					<input type="email" name="confirmEmail"
-						placeholder="Enter your email" required />
-				</div>
+						<input type="email" name="confirmEmail"
+							placeholder="Enter your email" required />
+					</div>
 
-				<!-- Buttons -->
-				<div class="profile-actions">
-					<a href="#" class="btn-outline">Cancel</a>
-					<button type="submit" class="btn-primary">Confirm Delete</button>
-				</div>
+					<!-- Buttons -->
+					<div class="profile-actions profile-actions--buttons">
+						<a href="#" class="btn-outline">Cancel</a>
+						<button type="submit" class="btn-primary">Confirm Delete</button>
+					</div>
+
 				</form>
 
 			</div>
@@ -130,12 +140,12 @@ if (user == null) {
 	String error = (String) request.getAttribute("error");
 	if (error != null) {
 	%>
-	<script> alert("<%=error%>
-		");
-	</script>
+	<script>
+    alert("<%= error.replace("\"", "\\\"") %>"); </script>
 	<%
 	}
 	%>
+
 
 
 	<script>
@@ -158,13 +168,27 @@ if (user == null) {
 		const nameElement = document.getElementById("profile-name");
 		const avatarElement = document.getElementById("profile-avatar");
 
-		const fullName = nameElement.innerText;
-		avatarElement.innerText = generateInitials(fullName);
+		if (!nameElement || !avatarElement) {
+		    console.error("Profile elements not found");
+		} else {
+		    const fullName = nameElement.innerText.trim();
+		    avatarElement.innerText = generateInitials(fullName);
 
-		const colors = [ "#6a7ce3", "#7a5cc7", "#5a6de0", "#8b5cf6", "#6366f1" ];
+		    const colors = [
+		    	  "#a5b4fc", // soft indigo
+		    	  "#c4b5fd", // lavender
+		    	  "#fbcfe8", // pink
+		    	  "#bae6fd", // sky
+		    	  "#bbf7d0", // mint
+		    	  "#fde68a"  // warm yellow
+		    	];
 
-		avatarElement.style.background = colors[Math.floor(Math.random()
-				* colors.length)];
+
+		    avatarElement.style.background = colors[Math.floor(Math.random() * colors.length)];
+		    // console.log(colors);
+		    // avatarElement.style.background = "#6366f1";
+		}
+
 	</script>
 
 </body>

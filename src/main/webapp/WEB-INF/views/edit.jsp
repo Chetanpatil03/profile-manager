@@ -17,6 +17,8 @@ if (user == null) {
 <title>Edit Profile</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/auth.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/edit.css">
 </head>
 
 <body>
@@ -36,8 +38,10 @@ if (user == null) {
 
 				<form method="post" action="updateProfile">
 
-					<input type="email" name="email" value="<%=user.getEmail()%>" readonly> <input type="text" name="name" value="<%=user.getName()%>" required> 
-						<input type="tel" name="phone" value="<%=user.getPhone()%>" required> <select
+					<input type="email" name="email" value="<%=user.getEmail()%>"
+						readonly> <input type="text" name="name"
+						value="<%=user.getName()%>" required> <input type="tel"
+						name="phone" value="<%=user.getPhone()%>" required> <select
 						name="designation" required>
 						<option value="">Select Designation</option>
 						<option value="Student"
@@ -61,8 +65,21 @@ if (user == null) {
 
 					<textarea name="bio"><%=user.getBio()%></textarea>
 
-					<button type="submit">Update</button>
-					<button type="button" onclick="location.href='home'">Home</button>
+					<div class="form-actions">
+					
+					<button type="button" class="btn-home"
+							onclick="location.href='home'">
+							<span class="btn-icon">🏠</span> Home
+						</button>
+						
+						<button type="submit" class="btn-update">
+							<span class="btn-icon">💾</span> Update
+						</button>
+
+						
+					</div>
+
+
 
 				</form>
 			</div>

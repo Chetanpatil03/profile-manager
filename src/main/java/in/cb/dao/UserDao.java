@@ -69,4 +69,15 @@ public class UserDao {
 		return template.update(query,id) > 0;
 	}
 	
+	public User findByEmail(String email) {
+	    String sql = "SELECT * FROM users WHERE email = ?";
+	    return template.queryForObject(sql, new UserRowMapper(), email);
+	}
+
+	public boolean updatePassword(int userId, String password) {
+	    String sql = "UPDATE users SET password = ? WHERE id = ?";
+	    return template.update(sql, password, userId) > 0;
+	}
+
+	
 }
