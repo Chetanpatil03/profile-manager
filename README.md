@@ -1,4 +1,4 @@
-# UserVault – Profile Management System
+# UserVault – Profile Manager
 
 UserVault is a secure **Profile Management Web Application** built using **Spring MVC and JDBC**, providing complete user authentication, session handling, and profile management features with a modern UI.
 
