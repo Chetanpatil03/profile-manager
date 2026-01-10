@@ -161,5 +161,5 @@ including authentication, profile management, and password recovery.
 
 ## 👤 Author
 
-**Chetan Patil**
-Java Backend Developer | Spring MVC | JDBC
+**Chetan Bachchhav**
+
