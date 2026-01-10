@@ -150,16 +150,16 @@ src/main
 
 ---
 
-## 👤 Author
-
-**Chetan Patil**
-Java Backend Developer | Spring MVC | JDBC
-
----
-
 ## 🧩 Application Flow Diagram - UserVault
 
 The diagram below illustrates the complete user journey and system flow,
 including authentication, profile management, and password recovery.
 
 <img width="11526" height="6693" alt="UserVault-design" src="https://github.com/user-attachments/assets/92f6eff9-e0cb-4aa2-9229-744248fd3e8b" />
+
+---
+
+## 👤 Author
+
+**Chetan Patil**
+Java Backend Developer | Spring MVC | JDBC
