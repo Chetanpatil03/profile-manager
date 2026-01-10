@@ -4,17 +4,17 @@ UserVault is a secure **Profile Management Web Application** built using **Sprin
 
 ---
 
-## 🚀 Features
+## Features
 
-* User Signup & Login
-* Secure Password Hashing using **BCrypt**
-* Session-based Authentication
-* View & Edit User Profile
-* Forgot Password & Reset Password Flow
-* Account Deletion with Confirmation
+* User can Signup & Login.
+* Secure Password Hashing using **BCrypt** (Spring security).
+* Session-based Authentication.
+* View, Edit and Delete User Profile.
+* Forgot Password & Reset Password Flow using session token.
+* Account Deletion with Confirmation.
 * Protected Routes using **Servlet Filters**
-* Input Validation & Error Handling
-* MVC Architecture with Clean Separation of Layers
+* Input Validation & Error Handling.
+* MVC Architecture with Clean Separation of Layers like - Bean, DAO, Controller, Services, Filter, and Resources.
 
 ---
 
@@ -22,9 +22,9 @@ UserVault is a secure **Profile Management Web Application** built using **Sprin
 
 * **Backend:** Java, Spring MVC, JDBC
 * **Frontend:** JSP, HTML, CSS, JavaScript
-* **Database:** MySQL / PostgreSQL (JDBC-based)
+* **Database:** MySQL Workbench (JDBC-based)
 * **Security:** BCrypt Password Hashing, HttpSession
-* **Server:** Apache Tomcat
+* **Server:** Apache Tomcat 10.1
 * **Build Tool:** Maven
 
 ---
@@ -84,11 +84,12 @@ src/main
 
 ## 🔐 Security Highlights
 
-* Passwords are **never stored in plain text**
+* Passwords are **never stored in plain text**.
+* Implemented one way hasing password can not retrived in normal form.
 * BCrypt hashing ensures strong password protection
 * Servlet Filter (`AuthFilter`) prevents unauthorized access
 * Cache-control headers block back-button access after logout
-* Reset password flow protected via session-based validation
+* Reset password flow protected via session-based validation and Token.
 
 ---
 
@@ -109,7 +110,7 @@ src/main
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/UserVault.git
+   git clone https://github.com/Chetanpatil03/profile-manager.git
    ```
 
 2. Configure database in:
@@ -147,6 +148,7 @@ src/main
 * Designed secure authentication flows
 * Built reusable UI components using JSP & CSS
 * Applied real-world **session management & security**
+* Learn about hashing and **BCrypt**.
 
 ---
 
@@ -161,5 +163,5 @@ including authentication, profile management, and password recovery.
 
 ## 👤 Author
 
-**Chetan Bachchhav**
-
+**Chetan Bachchhav**</br>
+Java Explorer | Tech Enthusiast
